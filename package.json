@@ -8,7 +8,9 @@
     "test": "mocha src/index.test.js -w",
     "test:single": "istanbul cover -x '**/*.test.js' _mocha -- -R spec src/index.test.js",
     "coverage": "istanbul cover -x '**/*.test.js' _mocha -- -R spec src/index.test.js && open coverage/lcov-report/index.html",
-    "precommit": "npm run test:single",
+    "check-coverage": "istanbul check-coverage --statements 100 --branches 100 --functions 100 --lines 100",
+    "report-coverage": "cat ./coverage/lcov.info | codecov",
+    "precommit": "npm run test:single && npm run check-coverage",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "repository": {
@@ -31,6 +33,7 @@
   },
   "devDependencies": {
     "chai": "3.5.0",
+    "codecov.io": "0.1.6",
     "commitizen": "2.9.6",
     "cz-conventional-changelog": "2.0.0",
     "husky": "0.13.3",
